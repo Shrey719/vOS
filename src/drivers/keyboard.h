@@ -4,7 +4,7 @@
 
 const int KEYBOARD_PORT = 0x60;
 bool isShifted = false;
-
+char buffer[] = "";
 // BIG   ASS   ENUM
 enum {
     ESC_PRS = 0x01,
@@ -210,13 +210,12 @@ char getc() {
 
     return scan_tochar(port_byte_in(0x60));
 }
-char* append_char(char list[], char c) {
-    int i = 0;
-    while (list[i] != '\0') {
-        i++;
+void append_char(char *str, char c) {
+    while (*str != '\0') {
+        str++;
     }
-    list[i] = c;
-    list[i + 1] = '\0';  // 
     
-    return list;
+    *str = c;
+    
+    *(str + 1) = '\0';
 }
