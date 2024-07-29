@@ -1,8 +1,10 @@
+#pragma once
+
 int buf_amnt = 0;
 
 void print_char(char c) {
-*(char*)(0xb8000+ buf_amnt)= c;
-buf_amnt = buf_amnt + 2;
+*(char*)(0xb8000+ buf_amnt)= c; // weird hack, but basicly writes to the first VRAM thing and then increments two adresses 
+buf_amnt = buf_amnt + 2; // as I said, weird hack
 }
 
 unsigned int strlen(char* str)
@@ -18,6 +20,6 @@ unsigned int strlen(char* str)
 
 void print(char* str) {
 for (int i = 0; i < strlen(str); i++) {
-    print_char(str[i]);
+    print_char(str[i]); // Is this even needed? we may never know...
 }
 }
