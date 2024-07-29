@@ -202,7 +202,7 @@ char scan_tochar(int n) {
     }  else if (n == ENTER_PRS) {
 		return '\n';
     }  else {
-        return -1; // -1 = Just return we have no clue what is going on
+        return -1; // -1 = INVALID_CHAR
     } 
 }
 
