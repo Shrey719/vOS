@@ -210,3 +210,13 @@ char getc() {
 
     return scan_tochar(port_byte_in(0x60));
 }
+char* append_char(char list[], char c) {
+    int i = 0;
+    while (list[i] != '\0') {
+        i++;
+    }
+    list[i] = c;
+    list[i + 1] = '\0';  // 
+    
+    return list;
+}

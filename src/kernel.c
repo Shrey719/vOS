@@ -3,12 +3,11 @@
 #include "drivers/keyboard.h"
 
 void main(){
-while (true){
+    while (true){
         char keyboard_current_char = getc();
-        if (keyboard_current_char != -1) 
-        {
-        print_char(keyboard_current_char); 
+        if (keyboard_current_char != -1) {
+            print_char(keyboard_current_char); 
         }
         while (keyboard_current_char == getc()){__asm__("nop");}
-}
+    }
 }
