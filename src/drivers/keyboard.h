@@ -1,6 +1,9 @@
 #pragma once
 #include "ports.h"
-const KEYBOARD_PORT = 0x60
+#include <stdbool.h>
+
+const int KEYBOARD_PORT = 0x60;
+bool isShifted = false;
 
 // BIG   ASS   ENUM
 enum {
@@ -99,24 +102,12 @@ enum {
 //BIG ASS FUNCTION`
 char scan_tochar(int n) {
 	if (n == ONE_PRS) {
-        if (isShifted){
-            return '!';
-        } else if (!isShifted) {
-            return '1';
-        }
+        return '1';
     } 
     if (n == TWO_PRS) {
-        if (isShifted){
-            return 'x';
-        } if (!isShifted) {
-            return '2';
-        }
+        return '2';
     } else if (n == THREE_PRS) {
-        if (isShifted) {
-        return '#';
-        } else {
         return '3';
-        }
     } else if (n == FOUR_PRS) {
         return '4';
     } else if (n == FIVE_PRS) {
@@ -208,28 +199,14 @@ char scan_tochar(int n) {
     } else if (n == LSHIFT_PRS) {
         isShifted = true;
         return -1; // Too scared to delete
-    } else if (n == LSHIFT_REL) {
-        isShifted = false;
-        return -1; // Same here lol
-	} else if (n == ENTER_PRS) {
+    }  else if (n == ENTER_PRS) {
 		return '\n';
-    } else if (n == 0x3A){ // 0x3A == Capslock
-        isShifted = !isShifted;
-        return -1; // Just here to return, and not print anything
-    } else {
-        return -1; // 13 == UNKNOWN/INVALID CHAR
+    }  else {
+        return -1; // -1 = Just return we have no clue what is going on
     } 
 }
 
 char getc() {
 
     return scan_tochar(port_byte_in(0x60));
-}
-
-void get_str() {
-    int idx_buf = 0;
-    for (; getc() !='\n'; idx_buf++) {
-        keyb_buffer[idx_buf] = getc();
-    }
-
 }
